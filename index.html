@@ -1,0 +1,687 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#020704">
+<meta name="description" content="A Matrix-inspired portfolio about programming, cybersecurity, and technology.">
+
+<title>Shivi | Matrix Portfolio</title>
+
+<style>
+:root {
+  --green: #00ff41;
+  --dark: #020704;
+  --panel: rgba(0, 15, 7, .92);
+  --muted: #9cbba6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  background: var(--dark);
+  color: #e2ffe9;
+  font-family: Consolas, "Courier New", monospace;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.container {
+  width: min(1050px, 90%);
+  margin: auto;
+}
+
+/* Matrix background */
+
+#matrix {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: .23;
+  pointer-events: none;
+}
+
+/* Navigation */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(0, 7, 3, .94);
+  border-bottom: 1px solid #087b32;
+}
+
+nav {
+  min-height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: var(--green);
+  text-shadow: 0 0 12px var(--green);
+}
+
+.navlinks {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.navlinks a:hover {
+  text-shadow: 0 0 12px var(--green);
+}
+
+.menu {
+  display: none;
+  padding: 8px 12px;
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
+  cursor: pointer;
+  font: inherit;
+}
+
+/* Hero section */
+
+.hero {
+  min-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 70px 0;
+}
+
+.label {
+  color: var(--green);
+  border: 1px solid #087b32;
+  background: #001b08;
+  padding: 5px 12px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.15;
+  text-shadow: 0 0 20px #00ff4130;
+}
+
+h1 span, h2 span {
+  color: var(--green);
+}
+
+#typing {
+  color: var(--green);
+  min-height: 36px;
+  margin-top: 15px;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.hero p {
+  max-width: 680px;
+  color: var(--muted);
+  margin-top: 15px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 17px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:hover {
+  background: var(--green);
+  color: #001b08;
+  box-shadow: 0 0 20px #00ff4160;
+}
+
+/* Sections */
+
+section.content {
+  padding-top: 75px;
+  padding-bottom: 35px;
+}
+
+h2 {
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  margin-bottom: 18px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 25px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid #087b32;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 0 18px #00ff4108;
+}
+
+.panel p {
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* Skills */
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill {
+  border: 1px solid #087b32;
+  color: var(--green);
+  background: #001b08;
+  padding: 7px 12px;
+  transition: .2s;
+}
+
+.skill:hover {
+  box-shadow: 0 0 12px #00ff4140;
+  transform: translateY(-2px);
+}
+
+/* Projects */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: .2s;
+}
+
+.project:hover {
+  border-color: var(--green);
+  transform: translateY(-5px);
+}
+
+.project-icon {
+  font-size: 2rem;
+}
+
+.project .btn {
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+.status {
+  display: inline-block;
+  color: var(--green);
+  border: 1px solid #087b32;
+  padding: 4px 9px;
+  font-size: .8rem;
+}
+
+/* Terminal */
+
+.terminal {
+  margin-top: 28px;
+  width: min(600px, 100%);
+  background: rgba(0, 10, 4, .94);
+  border: 1px solid #087b32;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 24px #00ff4110;
+}
+
+.terminal-head {
+  padding: 10px 15px;
+  border-bottom: 1px solid #087b32;
+  color: var(--muted);
+}
+
+.terminal-body {
+  padding: 18px;
+  overflow-wrap: anywhere;
+}
+
+.prompt {
+  color: var(--green);
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 35px 10px;
+  margin-top: 75px;
+  border-top: 1px solid #087b32;
+}
+
+footer span {
+  color: var(--green);
+}
+
+/* Mobile responsive layout */
+
+@media (max-width: 700px) {
+  .menu {
+    display: block;
+  }
+
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 69px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: #020704;
+    padding: 20px 5%;
+    border-bottom: 1px solid #087b32;
+  }
+
+  .navlinks.open {
+    display: flex;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: 75vh;
+  }
+
+  section.content {
+    padding-top: 55px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix" aria-hidden="true"></canvas>
+
+<header>
+  <nav class="container">
+    <a class="logo" href="#home">MATRIX_PROFILE.exe</a>
+
+    <button
+      class="menu"
+      id="menu"
+      aria-expanded="false"
+      aria-controls="navlinks">
+      MENU ☰
+    </button>
+
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Profile</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#goals">Goals</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME -->
+
+  <section class="hero container" id="home">
+    <div class="label">[ SYSTEM ONLINE ]</div>
+
+    <h1>HELLO, I'M <span>SHIVI</span></h1>
+
+    <h2 id="typing">Student & Technology Enthusiast</h2>
+
+    <p>
+      Welcome to my digital world. I enjoy exploring Python programming,
+      cybersecurity, web development and computer technology.
+      This is my personal learning portfolio.
+    </p>
+
+    <div class="buttons">
+      <a class="btn" href="#projects">[ VIEW PROJECTS ]</a>
+      <a class="btn" href="#about">[ EXPLORE PROFILE ]</a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-head">
+        ● ● ● &nbsp; shivi@matrix:~
+      </div>
+
+      <div class="terminal-body">
+        <p><span class="prompt">visitor@matrix:~$</span> whoami</p>
+        <p>Student & Technology Enthusiast</p>
+
+        <p><span class="prompt">visitor@matrix:~$</span> interests</p>
+        <p>Python Programming</p>
+        <p>Cybersecurity</p>
+        <p>Web Development</p>
+
+        <p><span class="prompt">visitor@matrix:~$</span> status</p>
+        <p class="prompt">Always learning. Always building.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT ME -->
+
+  <section class="content container" id="about">
+    <h2><span>01.</span> ABOUT ME</h2>
+    <p class="subtitle">// A little about my technology journey</p>
+
+    <div class="panel">
+      <h3>&gt; Who am I?</h3>
+
+      <p>
+        I'm a student who enjoys learning how technology works.
+        I like programming, exploring computers, creating digital
+        projects and understanding how websites are built.
+      </p>
+
+      <p>
+        I'm especially interested in Python programming and
+        cybersecurity. I want to improve my skills through
+        practice, creativity and responsible learning.
+      </p>
+
+      <p>
+        My goal is to build useful projects and keep discovering
+        new things about the digital world.
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILLS AND INTERESTS -->
+
+  <section class="content container" id="skills">
+    <h2><span>02.</span> INTERESTS & SKILLS</h2>
+    <p class="subtitle">// My technology learning journey</p>
+
+    <div class="panel">
+      <div class="skills">
+        <span class="skill">Python Programming</span>
+        <span class="skill">Cybersecurity</span>
+        <span class="skill">HTML</span>
+        <span class="skill">CSS</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">Linux</span>
+        <span class="skill">Web Development</span>
+        <span class="skill">Problem Solving</span>
+      </div>
+
+      <p>
+        Exploring Python programming, cybersecurity and computer
+        technology through hands-on learning and practice.
+      </p>
+
+      <p>
+        These are my interests and learning areas. I'll update
+        this section as I gain experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section class="content container" id="projects">
+    <h2><span>03.</span> MY PROJECTS</h2>
+    <p class="subtitle">// Projects I've built or want to develop</p>
+
+    <div class="grid">
+
+      <article class="panel project">
+        <div class="project-icon">💚</div>
+        <h3>Matrix Portfolio</h3>
+
+        <p>
+          A personal website with animated Matrix rain,
+          a terminal-inspired interface and a glowing green theme.
+        </p>
+
+        <span class="status">CURRENT PROJECT</span>
+
+        <a class="btn" href="#home">VIEW WEBSITE</a>
+      </article>
+
+      <article class="panel project">
+        <div class="project-icon">🐍</div>
+        <h3>Python Programming</h3>
+
+        <p>
+          Python exercises, beginner scripts and small
+          programs created while learning to code.
+        </p>
+
+        <span class="status">LEARNING PROJECT</span>
+      </article>
+
+      <article class="panel project">
+        <div class="project-icon">🛡️</div>
+        <h3>Cybersecurity Lab</h3>
+
+        <p>
+          Notes and practice projects about Linux, computer
+          security fundamentals and authorized security labs.
+        </p>
+
+        <span class="status">LEARNING PROJECT</span>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- GOALS -->
+
+  <section class="content container" id="goals">
+    <h2><span>04.</span> MY GOALS</h2>
+    <p class="subtitle">// The future I'm working towards</p>
+
+    <div class="panel">
+      <p>&gt; Improve my Python programming skills.</p>
+      <p>&gt; Learn cybersecurity responsibly.</p>
+      <p>&gt; Build more websites and applications.</p>
+      <p>&gt; Understand Linux and computer systems.</p>
+      <p>&gt; Create original projects and keep learning.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><span>[ ACCESS GRANTED ]</span></p>
+  <p>Welcome to my digital world.</p>
+  <p>Made with code by Shivi.</p>
+  <p>© <span id="year"></span> | Learning every day.</p>
+</footer>
+
+<script>
+
+// MOBILE NAVIGATION
+
+const menu = document.getElementById("menu");
+const navlinks = document.getElementById("navlinks");
+
+menu.addEventListener("click", () => {
+  const opened = navlinks.classList.toggle("open");
+  menu.setAttribute("aria-expanded", String(opened));
+});
+
+navlinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navlinks.classList.remove("open");
+    menu.setAttribute("aria-expanded", "false");
+  });
+});
+
+// TYPING ANIMATION
+
+const phrases = [
+  "Student & Technology Enthusiast",
+  "Python Programming",
+  "Cybersecurity Learner",
+  "Web Development",
+  "Building Digital Projects"
+];
+
+const typing = document.getElementById("typing");
+
+let phraseIndex = 0;
+let letterIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+  const phrase = phrases[phraseIndex];
+
+  typing.textContent = phrase.slice(0, letterIndex);
+
+  if (!deleting && letterIndex < phrase.length) {
+    letterIndex++;
+    setTimeout(typeEffect, 75);
+  } else if (!deleting) {
+    deleting = true;
+    setTimeout(typeEffect, 1100);
+  } else if (letterIndex > 0) {
+    letterIndex--;
+    setTimeout(typeEffect, 35);
+  } else {
+    deleting = false;
+    phraseIndex = (phraseIndex + 1) % phrases.length;
+    setTimeout(typeEffect, 250);
+  }
+}
+
+typeEffect();
+
+// FOOTER YEAR
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+// MATRIX DIGITAL RAIN
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+const symbols = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let drops = [];
+let width = 0;
+let height = 0;
+let columns = 0;
+let animationTimer;
+
+function resizeMatrix() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  columns = Math.ceil(width / 18);
+
+  drops = Array.from(
+    { length: columns },
+    () => Math.random() * height / 18
+  );
+}
+
+function drawMatrix() {
+  clearTimeout(animationTimer);
+
+  if (
+    document.hidden ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    animationTimer = setTimeout(drawMatrix, 500);
+    return;
+  }
+
+  ctx.fillStyle = "rgba(2, 7, 4, 0.10)";
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.fillStyle = "#00ff41";
+  ctx.font = "15px monospace";
+
+  drops.forEach((y, index) => {
+    const character =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    ctx.fillText(character, index * 18, y * 18);
+
+    if (y * 18 > height && Math.random() > 0.975) {
+      drops[index] = 0;
+    } else {
+      drops[index] += 0.7;
+    }
+  });
+
+  animationTimer = setTimeout(drawMatrix, 45);
+}
+
+resizeMatrix();
+drawMatrix();
+
+window.addEventListener("resize", resizeMatrix);
+document.addEventListener("visibilitychange", drawMatrix);
+
+</script>
+
+</body>
+</html>
